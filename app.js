@@ -1,6 +1,8 @@
 var express = require('express')
 var app = express()
 
+var requestService = require('request')
+
 app.use(function (request, response, next) {
   // Log request
   console.log(request.method, 'request to', request.path)
@@ -15,6 +17,12 @@ app.use(function (request, response, next) {
 
 app.get('/', function (request, response) {
   response.send('swag')
+})
+
+app.get('/users/:username/library', function (request, response) {
+  var username = request.params.username
+
+  requestService('http://hummingbird.me/api/v1/users/' + username + '/library').pipe(response)
 })
 
 var server = app.listen(3000, function () {
