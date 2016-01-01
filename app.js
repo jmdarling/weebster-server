@@ -43,7 +43,7 @@ app.post('/authenticate', function (request, response) {
 app.get('/users/:username/library', function (request, response) {
   var username = request.params.username
 
-  requestService('https://hummingbird.me/api/v1/users/' + username + '/library').pipe(response)
+  requestService('https://hummingbird.me/api/v1/users/' + username + '/library?status=' + request.query.status).pipe(response)
 })
 
 app.post('/libraryEntry/:id', function (request, response) {
