@@ -5,6 +5,8 @@ var requestService = require('request')
 
 var bodyParser = require('body-parser')
 
+var apiBase = 'https://hummingbird.me/api/v1/'
+
 // Logging and CORS.
 app.use(function (request, response, next) {
   // Log request
@@ -34,7 +36,7 @@ app.post('/authenticate', function (request, response) {
     return
   }
 
-  requestService.post('https://hummingbird.me/api/v1/users/authenticate').json({
+  requestService.post(apiBase + 'users/authenticate').json({
     username: username,
     password: password
   }).pipe(response)
@@ -43,7 +45,7 @@ app.post('/authenticate', function (request, response) {
 app.get('/users/:username/library', function (request, response) {
   var username = request.params.username
 
-  requestService('https://hummingbird.me/api/v1/users/' + username + '/library?status=' + request.query.status).pipe(response)
+  requestService(apiBase + 'users/' + username + '/library?status=' + request.query.status).pipe(response)
 })
 
 app.post('/libraryEntry/:id', function (request, response) {
@@ -55,7 +57,7 @@ app.post('/libraryEntry/:id', function (request, response) {
     return
   }
 
-  requestService.post('https://hummingbird.me/api/v1/libraries/' + id).json(request.body).pipe(response)
+  requestService.post(apiBase + 'libraries/' + id).json(request.body).pipe(response)
 })
 
 var server = app.listen(process.env.PORT || 3000, function () {
