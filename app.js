@@ -48,6 +48,12 @@ app.get('/users/:username/library', function (request, response) {
   requestService(apiBase + 'users/' + username + '/library?status=' + request.query.status).pipe(response)
 })
 
+app.get('/anime/:animeId', function (request, response) {
+  var animeId = request.params.animeId
+
+  requestService(apiBase + 'anime/' + animeId).pipe(response)
+})
+
 app.post('/libraryEntry/:id', function (request, response) {
   var authToken = request.body.auth_token
   var id = request.params.id
